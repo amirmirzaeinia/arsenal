@@ -14,3 +14,38 @@ This work is the first to make an extensive comparative study of all mainstream 
 + **Video and file analysis.** Arsenal develops an analysis module at receiver side to record and calculate the performance metrics for evaluating different CC algorithms.
 
 ![images](https://github.com/arsenalcc2019/arsenal/blob/master/images/algorithms.png)
+
+## Environment
+- Ubuntu 14.04 and later
+- python 2.7
+- tensorflow, tflearn, numpy, jsonpickle, and so on
+- bbr and pcc_vivace kernel support
+- protobuf support
+
+## Preparations
+We use the **mahimahi** as the emulator, so we need to install the environment mahimahi. For details, refer to the official website [mahimahi](http://mahimahi.mit.edu/).
+
+Each time we run the project, we need ensure two things.
+1. The bbr and pcc_vivace kernel modules have been installed into the kernel. For details, refer to the website [pcc-kernel](https://github.com/PCCproject/PCC-Kernel). The bbr module does the same thing like pcc_vivace.
+2. Run `sudo sysctl -w net.ipv4.ip_forward=1` to ensure the `ip_forward = 1`
+
+## Run
+1. Open a terminal, run following command to generate mahimahi environment.
+```
+mm-link 2mbps.trace 2mbps.trace mm-delay 10
+```
+The command means the delay of the link is 10 milliseconds and the bandwidth follows the given file `2mbps.trace`. Of course, we need prepare the `.trace` file in advance.
+
+2. Run one side inside the first command window and open a new terminal to run the another side. 
+
+For single flow,
+```
+./single_client.py
+./single_server.py
+```
+For compete flows,
+```
+./compete_client_runner.py
+./compete_server_runner.py
+```
+3. Then we will get the log file that records the communication process and we can use the scripts to analyze the log.
