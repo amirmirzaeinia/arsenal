@@ -1,5 +1,5 @@
 matplotlib==2.2.4
 jsonpickle==1.2
 tflearn==0.3.2
-tensorflow==1.13.1
+tensorflow==1.15.2
 numpy==1.16.2
